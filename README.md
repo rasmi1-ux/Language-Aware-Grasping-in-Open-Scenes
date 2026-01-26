@@ -129,5 +129,41 @@ After installation, your directory should look like this:
     ├── tokenizer_config.json
     ├── video_preprocessor_config.json
     └── vocab.json
+```
 
- 
+## 🤖 Usage
+
+### 1. Hardware Bringup
+Before running the python pipeline, you must launch the robot hardware, camera, and MoveIt 2. Run the following commands (each in a separate terminal):
+
+```bash
+# 1. Reset/Shutdown previous sessions (Optional but recommended)
+ros2 launch franka_lock_unlock shutdown.launch.xml hostname:=$ROBOT_IP username:=$FRANKA_USER password:=$FRANKA_PASSWORD
+
+# 2. Launch Franka Controller
+ros2 launch mul_franka_launch franka.launch.py robot_ip:=$ROBOT_IP
+
+# 3. Start Orbbec RGB-D Camera
+ros2 launch mul_franka_launch femto.launch.py
+
+# 4. Start MoveIt 2
+ros2 launch mul_franka_launch moveit.launch.py
+
+# 5. (Optional) Start RViz for visualization
+ros2 launch mul_franka_launch rviz.launch.py
+```
+
+### 2. Run the Pipeline
+
+Once the hardware is running, activate your environment and run the main reader script.
+
+**Standard Run (Logs Enabled):** By default, the system saves segmentation and process images to disk.
+
+```bash
+python reader.py
+```
+**Run without Logs:** If you do not want to see the segmentation images or save process logs, you can disable them using the logs:false argument:
+
+```bash
+python reader.py logs:false
+```
