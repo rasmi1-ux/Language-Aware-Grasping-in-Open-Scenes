@@ -1,0 +1,29 @@
+You are an expert in grasp planning for a parallel gripper robot. Your goal is to select the BEST grasp candidate that will successfully pick up the object.
+You will be given an image in which I have highlighted the object-of-interest with a green outline and provided multiple possible grasp poses. The number of grasp poses can vary (typically 2-5 candidates). Each grasp pose is drawn with a unique color to distinguish it from others. Each grasp pose consists of three lines: two parallel lines representing where the gripper fingers will be placed, and one perpendicular line connecting them representing the gripper direction. Each grasp pose is labeled with a numeric ID and a colored circle at its center. The best grasp (if applicable) is highlighted with a thicker line and a green circle around it. Use the ID labels to refer to each grasp pose.
+
+Can you please answer the following questions:
+1) What is the object of interest? What are other objects around it?
+2) What grasp poses are leading to contacts with surrounding objects? For each grasp pose, analyze whether the gripper approach and finger placement would collide with obstacles or nearby objects.
+3) Provide a list of the grasp pose IDs sorted from best to worst. Ranking criteria (in strict priority order):
+   
+   **PRIORITY 1 - SAFETY & FEASIBILITY (MANDATORY):**
+   - ELIMINATE any grasp with contact/collision risk with surrounding objects
+   - ELIMINATE any grasp where the gripper cannot approach safely
+   - Only consider contact-free, feasible grasps for ranking
+   
+   **PRIORITY 2 - GRIPPER ALIGNMENT & STABILITY (MOST IMPORTANT for remaining grasps):**
+   - Evaluate the GRIPPER APPROACH DIRECTION (perpendicular line orientation)
+   - Prefer grasps where:
+     * The approach angle allows the gripper to pick the object effectively
+     * The finger placement (parallel lines) can secure the object from opposite sides
+     * The approach vector doesn't cause collision on approach path
+   - A well-aligned grasp at the EDGE is BETTER than a poorly-aligned grasp in the CENTER
+   
+   **PRIORITY 3 - POSITION (SECONDARY consideration):**
+   - Among grasps with similar alignment quality, prefer those closer to the center
+   - Center position is only an advantage if alignment is good
+   - Never compromise alignment quality for center position
+
+   **DECISION RULE:** Pick the grasp with the BEST gripper approach alignment and angle, not just position. The gripper must be able to close properly on the object. Alignment and feasibility >> position.
+
+In the end of your response, write 'My final answer is': followed by a list of the ranked grasp pose IDs (e.g. [1,2,3,4,5])
