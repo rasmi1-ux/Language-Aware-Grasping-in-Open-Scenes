@@ -104,7 +104,7 @@ class OpenWorldGraspPipeline:
         self.perf_tracker.start_stage("Foreground (Qwen)")
         ground_out = self.qwen.F_ground(raw_path, seg_path, user_query)
         self.perf_tracker.end_stage("Foreground (Qwen)")
-        
+        print(f"[PIPELINE] Grounding Output: {ground_out.strip()}")
         match = re.search(r"\[(.*?)\]", ground_out)
         target_id = None
         if match:
@@ -120,7 +120,7 @@ class OpenWorldGraspPipeline:
         self.perf_tracker.start_stage("Planning (Qwen)")
         plan_out = self.qwen.F_plan(seg_path, target_id, raw_img=image_input)
         self.perf_tracker.end_stage("Planning (Qwen)")
-        
+        print(f"[PIPELINE] Planning Output: {plan_out.strip()}")
         execution_steps = []
         reasoning = plan_out
         
