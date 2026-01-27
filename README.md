@@ -26,7 +26,6 @@ This repository contains **LAGOS**, an open-world, language-aware robotic graspi
 ### 1. Clone the Repository
 ```bash
 git clone https://github.com/rasmi1-ux/Language-Aware-Grasping-in-Open-Scenes.git
-cd lagos
 ```
 
 ### 2. Set Up Python Environment (Recommended)
