@@ -1,9 +1,12 @@
-# Open World Grasping (OWG) Pipeline
-The ability to grasp objects in-the-wild from open-ended language instructions constitutes a fundamental challenge in robotics. We propose OWG, an open-world grasping pipeline that combines SAM 2.1 and Qwen-VL to unlock grounded world understanding in three stages: open-ended referring segmentation, physical reasoning for multi-step planning (e.g., removing blockers before grasping), and grasp ranking via VLM-based evaluation. This approach enables the system to operate zero-shot via visual prompting, allowing a Franka Emika Panda robot to perceive, reason, and act in complex, unstructured environments without task-specific training.
+# LAGOS: Language-Aware Grasping in Open Scenes
+
+The ability to grasp objects in-the-wild from open-ended language instructions constitutes a fundamental challenge in robotics. We propose **LAGOS (Language-Aware Grasping in Open Scenes)**, an open-world robotic grasping pipeline that combines **SAM 2.1** and **Qwen3-VL** to enable grounded perception, physical reasoning, and action execution from open-ended natural language instructions.  
+
+LAGOS operates in three stages: (1) open-ended referring segmentation, (2) physical reasoning for multi-step manipulation planning (e.g., removing blocking objects), and (3) grasp ranking via vision-language model evaluation. The system operates in a **zero-shot** manner via text prompting and enables a **Franka Emika Panda** robot to perceive, reason, and act in complex, unstructured environments without task-specific training.
 
 ## 📖 Overview
 
-This repository contains an **open-world grasping pipeline** that:
+This repository contains **LAGOS**, an open-world, language-aware robotic grasping pipeline that:
 * **Segments** objects in an RGB image (SAM2 automatic mask generation).
 * **Grounds** a natural-language query to a target instance ID (Qwen3‑VL).
 * **Plans** a high-level action (e.g., `pick` / `remove`) based on physical reasoning (Qwen3‑VL).
@@ -18,21 +21,9 @@ This repository contains an **open-world grasping pipeline** that:
 * **Hybrid Grasping:** Combines geometric grasp generation (contact-based) with VLM-based semantic ranking to select the most stable and collision-free grasp.
 * **ROS 2 Integration:** Fully integrated with **ROS 2** (Humble/Jazzy) and **MoveIt 2**, featuring a modular architecture with separate nodes for perception and robot control.
 
-* ## 🛠️ Prerequisites
-
-### Hardware
-* **Robot:** Franka Emika Panda.
-* **Camera:** RGB-D Camera.
-  * *Supported:* Orbbec Femto Bolt or Intel RealSense.
-  * *Mounting:* Camera must be hand-mounted or fixed relative to the robot base.
-    
-### Software Dependencies
-* **ROS 2:** Jazzy.
-* **Hardware Interface:** The `mul_franka` repository installed in your workspace.
-
 ## 🔧 Robot & Hardware Setup
 
-Before running the OWG pipeline, you must set up the `mul_franka` drivers and ensure the real-time kernel is active.
+Before running the **LAGOS pipeline**, you must set up the `mul_franka` drivers…
 
 ### Check & Install the [`mul_franka`](https://github.com/mul-cps/mul_franka) Workspace
 
@@ -40,8 +31,8 @@ Before running the OWG pipeline, you must set up the `mul_franka` drivers and en
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/owg.git
-cd owg
+git clone https://github.com/rasmi1-ux/lagos.git
+cd lagos
 ```
 
 ### 2. Set Up Python Environment (Recommended)
@@ -49,8 +40,8 @@ cd owg
 Using **Conda** is strongly recommended to manage dependencies and avoid conflicts.
 
 ```bash
-conda create -n owg python=3.12.12 -y
-conda activate owg
+conda create -n lagos python=3.12.12 -y
+conda activate lagos
 ```
 
 ### 3. Install Core Libraries
@@ -167,3 +158,22 @@ python reader.py
 ```bash
 python reader.py logs:false
 ```
+## 📚 Citation
+
+If you find **LAGOS** useful in your research, please consider citing this repository.
+
+**LAGOS** is inspired by and builds upon the ideas introduced in the [**Open-World Grasping (OWG) framework**](https://gtziafas.github.io/OWG_project/), but it is an independent implementation.
+
+Please cite the original OWG work as follows:
+
+```bibtex
+@article{tziafas2024openworldgraspinglargevisionlanguage,
+  title   = {Towards Open-World Grasping with Large Vision-Language Models},
+  author  = {Georgios Tziafas and Hamidreza Kasaei},
+  journal = {8th Conference on Robot Learning (CoRL 2024)},
+  year    = {2024}
+}
+```
+
+
+
