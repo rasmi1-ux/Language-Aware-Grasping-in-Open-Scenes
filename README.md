@@ -21,12 +21,6 @@ This repository contains **LAGOS**, an open-world, language-aware robotic graspi
 * **Hybrid Grasping:** Combines geometric grasp generation (contact-based) with VLM-based semantic ranking to select the most stable and collision-free grasp.
 * **ROS 2 Integration:** Fully integrated with **ROS 2** (Humble/Jazzy) and **MoveIt 2**, featuring a modular architecture with separate nodes for perception and robot control.
 
-## 🔧 Robot & Hardware Setup
-
-Before running the **LAGOS pipeline**, you must set up the `mul_franka` drivers…
-
-### Check & Install the [`mul_franka`](https://github.com/mul-cps/mul_franka) Workspace
-
 ## 📦 Installation
 
 ### 1. Clone the Repository
@@ -125,28 +119,16 @@ After installation, your directory should look like this:
 ## 🤖 Usage
 
 ### 1. Hardware Bringup
-Before running the python pipeline, you must launch the robot hardware, camera, and MoveIt 2. Run the following commands (each in a separate terminal):
 
-```bash
-# 1. Reset/Shutdown previous sessions (Optional but recommended)
-ros2 launch franka_lock_unlock shutdown.launch.xml hostname:=$ROBOT_IP username:=$FRANKA_USER password:=$FRANKA_PASSWORD
+Before running the **LAGOS pipeline**, you must set up the `mul_franka` drivers…
 
-# 2. Launch Franka Controller
-ros2 launch mul_franka_launch franka.launch.py robot_ip:=$ROBOT_IP
-
-# 3. Start Orbbec RGB-D Camera
-ros2 launch mul_franka_launch femto.launch.py
-
-# 4. Start MoveIt 2
-ros2 launch mul_franka_launch moveit.launch.py
-
-# 5. (Optional) Start RViz for visualization
-ros2 launch mul_franka_launch rviz.launch.py
-```
+* #### Check & Install the [`mul_franka`](https://github.com/mul-cps/mul_franka) Workspace
 
 ### 2. Run the Pipeline
 
 Once the hardware is running, activate your environment and run the main reader script.
+
+reader.py is the main entry point. It orchestrates the entire LAGOS pipeline by importing and executing all other modules, which are intentionally not meant to be run standalone.
 
 **Standard Run (Logs Enabled):** By default, the system saves segmentation and process images to disk.
 
